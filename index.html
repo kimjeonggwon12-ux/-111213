@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>계시록 학습 앱</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useRef } = React;
+
+        const rawData = `
+계 11장 두 증인과 일곱째 나팔
+또 내게: 계 10장의 열린 책을 받은 요한, [실상] 새요한, 계 1:2, 계 22:8, 16
+지팡이: 영적 배필, 요한이 의지하며 함께 일하는 일곱 금 촛대 장막의 성도 한 사람
+갈대: 척량의 도구, 믿음이 연약한 자, [실상] 새요한을 돕는 사명자, 마 11:7 ↔철장, 계 2:26~27, 금 갈대, 계 21:15
+주며: 누가: 계 10장의 힘센 다른 천사, 계 9장의 여섯째 나팔 부는 천사
+하나님의 성전과 제단: 배도 사건 후 알곡 성도가 모인 곳, 마 24:31, 계 3:4, 계 6:6, 계 7장, 계 15:2
+경배: 계 15장
+하는 자들: [실상] 이긴자를 따라 나온, 이긴자와 하나 된 사람들
+척량: 믿음과 지식의 분량을 달아 봄 → 양육, 고전 3:9, 16, 겔 47:3~5, 슥 1:16, 계 10:8~11
+성전 밖 마당: 배도한 일곱 금촛대 장막(하늘 장막), 계 13장, 계 2, 3장, 계 6장, 히 9:1~2, 왕상 6:16~17
+이방인: 일곱 머리와 열 뿔 가진 짐승, 계 13장, 계 12장, 마 24:15, 눅 21:20~24
+주었은 즉: 이유: 배도 행위를 회개치 않기 때문
+거룩한 성: 배도하기 전 예수님께서 왕래하시던 일곱 금촛대 장막, 계 1:12~13, 계 2:1, 마 24:15
+마흔 두 달: 멸망의 기간, 계 13:5, ※ 택하신 자들에게 육체의 구원을 얻게 하시려고 육적 이스라엘 멸망의 기간을 70년에서 42달로 감하심, 렘 25:9~11, 마 24:21~22
+짓밟으리라: 사 1:7~8, 계 8~9, 13장
+두 증인: 요한과 지팡이 같은 갈대로 비유한 육체 [실상] 새요한과 그를 돕는 사명자, 계 10장, 계 11:1, 계 1:2, 22:8
+권세: 예수님께 받은 말씀을 대언하는 권세 ↔ 계 13:4
+굵은 베옷: 죽은 행실을 회개시키는 말씀, 마 11:21, 눅 10:13, 계 19:8, 엡 6:12~17, 마 4:17.  
+일천 이백 육십 일: 예언의 기간: 이방에게 성전 밖 마당을 내어 준 42달 안에서도 성전을 척량하라는 명이 난 후부터 시작 ≠ 멸망의 기간, 계 11:2
+예언: 장래 일을 알리며 회개를 촉구하는 것, 계 10:10~11. 암 3:7
+주 앞에 섰는 두 감람나무: 주를 모시도록 기름 부어 성별한 두 사람, ※ 감람유: 증인의 증거의 말씀, 레 24:1~3, 슥 4:11~14, 계 1:2, 계 6:6, 마 25장
+두 촛대: 등불의 영이 함께하는 자, 사명: 빛 된 말씀으로 어두운 심령을 밝혀 깨우침, 렘 52:19, 슥 4:2~3, 계 4:5, 계 5:6 ← 옮겨감, 계 1:20, 계 2:5
+불: 심판의 말씀, 렘 5:14, 히 12:29, 눅 12:49, 슥 5:1~4 ↔ 계 9:17~19
+그 원수를 소멸: 거짓 선지자의 입에서 나오는 악령과 거짓말, 계 16:13
+해하려 하면: 두 증인을 해하는 것: 예수님을 해하는 것, 요 15:23
+죽임을 당하리라: 자기 영이 죽게 됨, ※ 히 10:30
+하늘: 영계의 천국과 육계의 새 장막, 창 37:9~11, 계 21장, 계 11:1, 계 7장
+비 오지 못하게 하고: 두 증인이 소속 성도들로 하여금 배도한 일곱 금촛대 장막에 말씀을 전하지 못하게 함, 신 32:2 사 5:3~7, 사 1:30, 마 7:6, 벧후 2:20~22, 창 3:22~24
+또 권세를 가지고 물을 변하여 피 되게 하고: 계시 말씀으로 멸망자의 교리가 비진리임을 드러냄, 계 10장, 출 7:20~21, 계 16장
+땅: 육체가 된 배도한 일곱 금촛대 장막 성도들, 창 2:7, 창 3:17, 갈 3:3, 계 6:13, 계 13:3, 11
+치리로다: 심판, 사 11:4, 살후 2:8
+증거: 배도와 멸망 사건
+마칠 때: 해야 할 말을 다 한 것, ※ 예언과 증거는 다름
+무저갱: 지옥, 멸망자들의 활동 본부, [실상] O지기교육원, 눅 8:30~31, 계 9:2, 계 18:2, 계 20:2~3
+으로부터 올라오는 짐승: 귀신과 하나 된 거짓 목자들, 황충, 사단의 마병대, [실상] O지기교육원의 일곱 목자, 잠 30:2~3, 계 9:3, 16, 계 12장, 계 13:1~2, 계 17장, 계 19:20
+전쟁을 일으켜: 이유: 자신을 성경의 예언된 멸망자라고 증거하는 것이 싫기 때문
+죽일 터인즉: 영적 죽음, 주께 받은 권세와 사명 박탈, [실상] 증인의 죽음, 마 5:10~12, 눅 17:25
+큰 성: 이방이 된 장막, 계 11:2, 계 13:6
+소돔: 그 부패함이 멸망받은 소돔 같음, 눅 17:28~30
+애굽: 모세와 아론(하나님의 목자)이 이방 바로 왕과 싸운 애굽 같음
+주께서 십자가에 못 박히신 곳: 무고하신 예수님을 죽인 패역한 예루살렘 같음, 마 27:33
+백성들과 족속과 방언과 나라: 멸망자 소속 각 교회·교단·교인·교리 죄 가운데 있는 모든 교회, 계 5:9, 계 7:9, 계 10:11, 계 13:7, 계 14:6, 계 17:15
+사람들: 멸망자에게 속한 장막 성도들과 일반 교인들
+목도하며: 증거도 예언도 못 하게 된 것을 조롱하며 보게 함
+무덤: 멸망자의 교단, 눅 11:44, 마 23:27
+장사하지 못하게 하리로다: 두 증인을 자기 교단에 가입시키지 않음
+땅에 거하는 자들: 육체뿐인 일곱 금촛대 장막 성도들, 갈 3:3, 계 13:3
+괴롭게: 계 8:7
+저희의 죽음: 영적 죽음, 두 증인이 심판하는 말을 그치게 됨
+즐거워하고 기뻐하여 서로 예물을 보내리라: 기뻐하는 말을 선물처럼 주고받음
+삼일 반: 계 11:9
+생기: 하나님의 말씀, 창 2:7, 요 1:4, 요6:63
+발로 일어서니: 영적 부활, 겔 37:9~13, ※ 요 5:24~29
+구경하는 자들: 9절의 목도하는 자들
+하늘로부터 큰 음성: 예수님의 목소리, 계 1:10, 계 4:1
+구름을 타고: 성령에 이끌림
+하늘로 올라가니: 영으로 하나님께 갔다가 땅의 하늘장막으로 간 것, 요 20:17, 계 4:1, 계 13:6
+원수들: 영: 사단, 육: 멸망자
+구경: 사단: 두 증인이 영계 하나님께 올라가는 것을 본 것, 멸망자: 육계 하늘 장막으로 가는 본 것
+그 시: 두 증인이 살아나 하늘로 올라갈 때
+큰 지진: 마음이 크게 흔들리는 것
+성 십분의 일이 무너지고: 짐승의 교단이 된 일곱 금촛대 장막 조직 1/10이 무너짐, 고전 3:9, 16, 계 11:2
+죽은 사람이 칠천: 배도한 일곱 금촛대 장막 성도들, [실상] 장막성전 교인 약 7천 명의 영적 죽음(배도로 영이 죽은 3천 명과 세상으로 나간 4천 명), 계 11:2
+그 남은 자들: 두 증인에게 척량받은 사람들, 계 11:1
+둘째 화: 여섯째 나팔의 재앙, 계 9:13~21
+셋째 화: 일곱째 나팔의 재앙, 계 11:15
+일곱째 천사가 나팔을 불매: 구원의 나팔 소리 : 부활과 영생, 수 6장, 계 10:7, 요 11:25~26, 고전 15:42~44, 51~54, 사 25:6~8, 계 20:4~6
+세상 나라: 사망이 왕 노릇 해온 것, 엡 2:2, 히 2:14~15, 계 17:15
+우리 주와 그 그리스도의 나라: 하나님이 주관하시고, 생명이 왕 노릇 함, 계 12:10~11
+옛적에도 계셨고 시방도 계신 주 하나님: 계 1:8, 계 4:8
+왕 노릇: 계 19:1~6
+이방들: 무저갱 짐승
+분노: 이유: 자신들이 주관하던 세상 나라가 하나님의 나라가 되고, 심판이 곧 이를 것을 알기 때문, 계 12:12, 계 13:10
+상: 약속의 목자 이긴자: 계 2, 3장에 기록된 복, 12사도: 이스라엘 12지파 치리권, 마 19:28, 12지파 성도: 각 사람에게 일한 대로 갚아 주심, 계 22:12, ※ 롬 8:18, 슥 8:10
+땅을 망하게 하는 자들: 일곱 금촛대 장막을 무너뜨린 거짓 목자들, 계 13장
+멸망: 심판, 계 16~18장
+이에: 일곱째 나팔이 불리매
+하늘에 있는 하나님의 성전: 이긴자가 인도하는 성전, [실상] 1984(신천기 1년). 3. 14. 증거장막성전 창립, 계 3:12, 계 12:10, 계 21장, 계 15:5
+열리니: 세상에 알려짐
+언약궤: 언약의 말씀
+번개: 영들의 빠른 활동, 겔 1:13~14, 눅 17:22~24, 계 4:5, 계 8:5, 계 16:17~18
+음성들과 뇌성: 하나님께서 정사(政事)하시는 소리
+지진: 마음이 흔들리는 것, 계 8:5
+큰 우박: 진노의 말씀, 말씀 받은 목자, [실상] 새요한, 신 322, 사 28:2, 렘 6:10~11, 계 6:16, 계 8:7, 계 15:1, 계 16:21
+
+계 12장 용과 하나님과의 전쟁
+하늘: 일곱 금 촛대 장막, [실상] 장막성전, 창37:9~11, 계 1, 2, 3장, 계 6장, 계 8, 9장, 계 13:6
+큰 이적(異蹟): 여자가 아이를 밴 일, 이유: 이 아이가 용과 싸워 이긴 후 철장으로 만국을 다스릴 남자이기 때문, 계 12:5, 10, 계 2:26~27, 계 21:7
+해를 입은 한 여자: 일곱 금 촛대 장막을 인도하는 목자, [실상] 장막성전 목자 모씨(某氏), 창 37:9~11, 갈 4:19, 고전 3:2, 딤후 1:2≠ 하나님 소속, 계 19:7 ≠ 마귀 소속, 계 2:20, 계 17:5
+아이: 금촛대 장막의 목자가 영적으로 낳은 성도, [실상] 새요한, 렘 1:6, 딤후 1:2
+해산: 말씀의 씨로 낳음
+아파서: 멸망자에게 42달간 사로잡혀 있는 고통, ※ 창 3:16 성취, 렘 6:24
+애써 부르짖더라: 만국을 다스릴 아이 하나가 출생 되기를 원해서 부르짖는 것, 말 3:1
+큰 붉은 용: 사단, 계 12:9, 계 20:2
+머리가 일곱: 일곱 목자, [실상] O지기교육원 일곱 목자, 사 9:15, 사 29:10, 계 17:9~10, 계 13:1
+뿔이 열: 열 권세자, [실상] 장로교 교법으로 다시 세운 장막성전 열 장로, 계 17:12, 계 13:1
+면류관: 직분과 권세, 계 9:7
+꼬리: 거짓 선지자, [실상] 목사 안수받은 장막성전 전도사 17명, 사 9:15, 계 9:19, 계 13:15, 신 28:44
+하늘 별 삼분의 일: 일곱 금촛대 장막 성도 1/3, 계 8, 9, 12장
+끌어다가 땅에 던지더라: 육체뿐인 자로 돌아가게 함, 창 3:19, 창 2:7, 갈 3:3, 렘 17:13, 계 6:13, 계 13:3, 11 ↔ 계 3:5, 빌 3:20
+삼키고자 하더니: 이유: 아이가 용과 싸워서 이기고 만국을 다스릴 자이기 때문
+여자가 아들을 낳으니: 새 일, 이유: 아이의 탄생으로 구원의 일이 있게 되기 때문, 사 7:14, 렘 31:22
+장차: 용과 싸워 이긴 후, 42달 후, 계 12:10 
+철장: 영원한 치리권, 진리의 말씀, 시 2:6~11, 요 12:48, 계 2:26~27, 계 19:15
+만국을 다스릴 남자: 약속한 목자 이긴자, 계 2~3장, 계 21:7
+하나님 앞과 그 보좌 앞으로 올려가더라: 영계 보좌가 이긴자에게 임함. 계 3:12 계 3:21, 계 4장, 계 14:3, 계 15:2
+광야: 진리의 말씀이 없는 곳, [실상] 세상 신학교, 암 8:11
+도망: 1차전의 결과, [실상] 도미(渡美), 신 28:25
+일천이백육십 일 동안: [실상] 1980. 10. 도미~1984. 4. 귀국, 계 12:14 ※ 멸망의 기간 42달, 1980. 9.~1984. 3. 계 11:2, 계 13:5 ※ 예언의 기간 1,260일, 계 11:3
+양육: 이방 교리를 배움, 엘리야의 심령으로 온 길 예비 사자임을 알림, 왕상 17:1~7, 눅 1:17, 마 17:11~13, 마 3:3, 요 10:11~15, [실상] 1980. 10.~1984. 4. 장막성전 목자 모씨(某氏), 미국의 신학교에서 양육받음.
+하늘: 선민 장막
+전쟁: 영적 전쟁, 2차전, 엡 6:12, 17. 히 4:12
+미가엘: 천사장
+그의 사자들: 하나님의 군대, 천천만만의 천사들(영)과 아이와 형제들(육), 시 103:20~21, 계 6장, 슥 6장, 계 19장, 계 12:5, 11, ※ 사 24:21, 계 20:4~6
+그의 사자들: 사단의 군대, 이만만의 악령들(영)과 일곱 머리와 열 뿔과 꼬리들(육), 계 9:15~19
+하늘: 선민 장막
+큰 용이 내어 쫓기니: 때: 멸망의 기간 42달 후, ※ 42달, 계 11:2, 계 13:5
+온 천하를 꾀는 자: 아담 이래 6,000년 동안 만국 미혹, 계 18:2~3, 23
+땅: 육체뿐인 사람들(이 있는 세상), 창 3:19 * 용이 쫓겨난 하늘 장막
+이제: 용이 하늘 장막에서 쫓겨난 후
+하나님의 구원과 능력과 나라와 또 그의 그리스도의 권세가 이루었으니: 영적 새 이스라엘 12지파 창조, [실상] 1984. 3. 14. 신천지예수교증거장막성전 창립, 계 7장, 계 14장, 계 11:15~19, 계 15:5, 계 21:1, 단 2:44~45, 마 6:33, ※ 살후 2:1~3
+쫓겨났고: 2차전의 결과, 신 28:7
+여러 형제: 이긴자와 하나 된 소수의 무리들, 계 3:4, 계 6:6, 계 11:1
+어린양의 피: 대속의 사랑과 약속한 예수님의 말씀 요 6:53~56, 63, 눅 22:14~20, 계 5:9~10, 계 7:14, 계 1:5~6, 계 19:13
+증거하는 말: 용의 정체를 증명하는 계시록의 예언이 성취된 실상 증거의 말씀 사단의 무기: 거짓말(주석), 교권(정교 유착, 교인 수), 핍박, 요 8:44 계 13장, 계 18:3
+이기었으니: 계 2~3장의 약속대로 이긴 자가 됨, 계 2~3장, 계 21:7
+죽기까지 자기 생명을 아끼지 아니하였도다: 참된 산 순교자들, 눅 14:26, 계 2:13 ↔ 계 13:4
+하늘과 그 가운데 거하는 자들: 아이(이긴자)와 그 형제들, 계 17:14
+땅: 배도한 일곱 금촛대 장막 성도들
+바다: 용의 소속 세상 교인들, 계 17:1~5, 15
+자기의 때: 무저갱에 갇히는 때, 계 20:3
+분내어: 이유: 심판이 곧 이를 것을 알기 때문, 계 11:18
+너희: 땅과 바다
+땅: 육체뿐인 사람들(이 있는 세상), 계 12:9
+남자를 낳은 여자: 해·달·별 입은 여자
+핍박: 이유: 만국을 다스릴 아이를 낳았기 때문
+큰 독수리의 두 날개를 받아: 네 생물의 인도를 받음, 출 19:4, 계 4장
+광야: [실상] 세상 신학교
+자기 곳으로 날아가: 아담이 범죄하여 흙으로 돌아간 것처럼 배도자가 육체가 되어, 자기가 양육 받기로 예비된 곳인 광야 곧 영적 애굽(진리의 말씀이 없는 곳)으로 도망함
+그 뱀: 멸망자, 마 23:33
+한 때와 두 때와 반 때: 3년 반, ※ 계 12:6과 현장, 날 수는 동일함, 단 11:13
+양육 받으매: 이방 교리를 배움, 왕상 17:1~7, 눅 1:17, 마 17:11~13, 요 10:11~15
+뒤: 도망가고 없는 자리
+뱀: 멸망자
+그 입으로 물을 강같이 토하여: 비난함, 창 3:11, 창 9:22 ↔ 요 7:38~39 
+땅: 배도한 일곱 금촛대 장막 성도들, 창 3:19, 갈 3:3, 계 13:3
+여자를 도와 그 입을 벌려 용의 입에서 토한 강물을 삼키니: 비난하는 말을 듣고도 일곱 금촛대 장막 목자의 편이 되어 감싸 줌
+그 여자의 남은 자손: 아이와 그 형제들(이긴 자들), 계 15:2, 겔 14:22
+싸우려고: 아마겟돈 전쟁, 3차전, 계 16:14
+바다 모래: 수많은 세상 교인들, 단 7:3, 17, 삿 7:12, 계 20:7~10
+섰더라: 군림→ 결국에는 무저갱에 갇힘, 계 20:1~3
+
+계 13장 짐승에게 표 받고 배도한 선민
+내가 보니: 요한 [실상] 새요한, 계 1:2, 계 22:8, 16
+바다: 세상, 바벨론, 단 7:3, 17, 계 17:3, 15
+짐승: 거짓 목자, 잠 30:2~3, 시 49:20, 잠 12:1, 단 7:2~7, 17, 마 24:15
+뿔이 열: 열 권세자 [실상] 장로교 교법으로 다시 세운 장막성전 열 장로, 계 17:12, 계 12:3
+머리가 일곱: 일곱 목자, [실상] O지기교육원 일곱 목자, 사 9:15, 계 17:9~10, 계 12:3
+열 면류관: 일곱 목자에게 받은 직분, 고전 9:25 ↔ 계 4:4, 계 14:14
+참람된 이름들: 스스로 만들어 쓴 감투, [실상] O지기교육원 일곱 목자의 직위, 계 17:3
+표범과 비슷하고 그 발은 곰의 발 같고 그 입은 사자의 입: 양 같은 성도를 해치는 멸망자, 사 56:9~11, 계 9:8 ↔ 계 4:7
+용: 사단, 계 12:9, 계 20:2
+능력과 보좌와 큰 권세를 그: 바다 짐승
+에게 주었더라: 용의 대행·대언자로 삼음, 계 16:10 ↔ 하나님의 보좌, 고전 3:16, 계 3:21, 계 14장, 계 15장, 계 22장
+머리 하나: [실상] 청지기교육원 '땅 씨(가명)'
+상하여 죽게 된 것 같더니: [실상] 동류 목자 '킴 씨(가명)와 자리다툼으로 인해 실족할 정도로 마음이 상함, 슥 13:6
+그 죽게 되었던 상처 가 나으매: 일이 잘 해결됨 [실상] '땅 씨'(가명)가 대표 직책을 맡음
+온 땅: 일곱 금 촛대 장막 모든 성도들, 창 3:19, 렘 17:13
+짐승을 따르고: ↔ 계 14:4
+용에게 경배하며 짐승에게 경배하여: 세상 목자를 참 목자로 섬기며 마귀 신에게 예배함, 신 5:9, 고전 10:20 ↔ 계 14:6~7, 마 4:8~11
+누가 이 짐승과 같으뇨 누가 능히 이로 더불어 싸우리요: 짐승 목자의 권세와 위력이 대단함을 의미함. ※ 그 권세 아래에서 장막 성도들은 결국 전쟁에서 지게 됨. ※ 전쟁에서 진 이유: 새 언약을 지키지 못했기 때문임, 신 28장, 렘 22:8~9 ↔ 계 12:11
+짐승: 바다 짐승
+큰 말과 참람된 말 하는 입: 용에게 받은 교리와 설교권, 계 16:13, 창 3:6 요 14:24
+마흔두 달 일할 권세: 42달 동안 설교와 치리를 하는 권세, 계 11:2 ※ 렘 25:9~11, 단 9:2, 마 24:15, 21~22 → 계 12:10
+짐승: 바다 짐승
+입을 벌려: 용에게 받은 교리로
+하나님을 향하여 훼방: 하나님께서 세우신 일곱 사자와 그 성도를 대적, 마 25:40, 요 15:23
+하늘: 일곱 금촛대 장막(영적 이스라엘), [실상] 과천 소재 청계산 하(下) 장막성전, 창 37:9~11, 계 1, 2, 3장, 계 6장, 8, 9장, 계 12장
+거하는 자들: 일곱 사자와 성도들
+성도들과 싸워: 1차전
+이기게 되고: 짐승의 무기: 거짓말(주석), 교권(정교 유착, 교인 수), 핍박, 요 8:44, 계 18:3,↔ 계 12:11
+족속과 백성과 방언과 나라: 배도한 일곱 금촛대 장막 성도를 포함한 짐승 소속교인들 죄 가운데 있는 모든 교회, 계 5:9, 계 7:9, 계 10:11, 계 11:9, 계 14:6, 계 17:15
+다스리는 권세를 받으니: 다스림을 받는 이유: 계시록의 말씀을 깨닫지 못했기 때문
+생명책: 천국 호적, [실상] 이긴자가 인도하는 영적 새 이스라엘(신천지) 12지파 교적부, 시 69:27~28, 빌 3:20, 빌 4:3, 계 3:12, 21, ※ 계 3:5, 계 17:8, 계 20:12, 15, 계 21:27
+창세(創世): 새로운 세계가 창조된 때, [실상] 장막성전이 창립된 때, 마 24:21, 단 12:1
+녹명되지 못하고 이 땅에 사는 자들: 배도한 하늘 장막 성도, 계 17:8 ↔ 녹명된 자: 계 3:4~5, 계 11:1, 계 12:11, 계 15:2
+짐승에게 경배: 결과: 유황 불못, 계 20:12, 15 ↔ 거룩한 성 입성, 계 21:27
+사로잡는 자: 바다 짐승
+사로잡힐 것: 예수님의 군대에게 산 채로 잡힘 유황 불못, 계 19:19~21
+칼: 거짓 교리
+로 죽이는 자: 바다 짐승
+칼: 진리의 말씀
+에 죽으리니: 계 8~9장, 계 16장, 계 19:19~21., 계 18:6, 겔 39:9
+성도들의 인내: 짐승의 핍박에 대항하여 신앙의 정절을 지키는 것, 계 3:10
+믿음: 약속의 말씀을 믿고 지키는 것, 요 14:29, 23, 눅 18:8, 계 14:9~12
+여기 있느니라: 이 사건, 이유: 42달 후 하나님의 구원·능력·나라·권세가 이루어지기 때문, 계 12:10, 계 18:6, 애 1:21~22
+다른 짐승이 땅에서 올라오니: 일곱 금촛대 장막 출신으로서 멸망자와 하나 된 육체, [실상] 거짓 목자 '뱀 씨'(가명), 계 13:3, 겔 16:4, ※ 계 2:6, 14, 계 6:8, 계 8:10~11, 계 9:1~3, 계 13:16~18, 계 17:8, 11, 계 19:20
+새끼 양같이: 하나님의 목자로 가장함, 고후 11:13
+두 뿔: 두 권세자
+용처럼 말: 용의 교리를 대언, 계 13:5 ↔ 요 14:24
+저: 땅 짐승
+가 먼저 나온 짐승: 바다 짐승
+그 앞에서 행하고: 땅 짐승이 바다 짐승의 대행자임
+땅에 거하는 자들: 배도한 하늘 장막 성도들
+처음 짐승: 바다 짐승
+에게 경배하게 하니: 멸망의 목자를 참 목자로 믿고 따르게 함
+죽게 되었던 상처가 나은 자: 바다 짐승, 계 13:3
+사람들: 배도한 하늘 장막 성도들
+불: 짐승의 교리, 렘 5:14, 눅 12:49
+하늘로부터 땅에 내려오게 하고: 단상에서 성도들에게 내려 생령을 죽임, 계 9:17~19 ↔ 계 11:5
+짐승: 바다 짐승
+땅에 거하는 자들: 배도한 하늘 장막 성도들
+칼에 상하였다가 살아난 짐승: 바다 짐승
+우상: 거짓 목자, [실상] 1981. 9. 20. 14시 목사 임직식, 합 2:18~19, 마 24:24, 계 9:19, 계 12:4
+가 권세를 받아: 권세 용 → 바다 짐승 → 땅 짐승
+생기: 거짓 교리, 신 32:31~32, 렘 23:15 → 창 2:7, 겔 37:4~10, 요 1:4, 요 6:63, 계 11:11
+말하게 하고: 단상에 서서 비진리를 전함,계 8:10~11
+짐승의 우상에게 경배하지 아니하는 자: 거짓 목자를 따르지 않는 자
+죽이게 하더라: 제명, 출회, 단 3:1~7, 요 16:2
+저: 땅 짐승
+모든 자 곧 작은 자나 큰 자나 부자나 빈궁한 자나 자유한 자나 종들:하늘 장막의 모든 자, [실상] 지교회를 포함한 장막성전의 모든 성도들
+오른손: 선서
+이마: 안수
+표: 666표, 짐승의 대리와 교법, 딤전 4:1~2 ↔ 요 3:31~34, 계 7장, 계 14장, 계 22:3~4
+받게: 인정하게
+매매(賣買): 교리를 설교하거나 듣는 일, 마 13:45~46,마 25장
+짐승의 이름: 사단의 비진리
+그 이름의 수: 666
+그 짐승: 땅 짐승
+사람의 수니 육백 육십 륙: 사단의 비진리와 거짓 목자, 이방 신을 섬긴 솔로몬 같은 자, [실상] '뱀 씨'(가명): 장막성전 목자가 O지기교육원 일곱 목자와 하나 되어 낳은 자로서, 장막의 치리권을 넘겨받음, 겔 44:7~8, 신 7:1~11, 삼하 11:2~3, 12~24, 왕상 1:28~31, 11:1~8, ※ 단 2:31~38, 3:1, 왕상 10:14~16, 대하 9:13~15
+`;
+
+        const bibleText = {
+            11: [
+                "또 내게 지팡이 같은 갈대를 주며 말하기를 일어나서 하나님의 성전과 제단과 그 안에서 경배하는 자들을 척량하되",
+                "성전 밖 마당은 척량하지 말고 그냥 두라 이것을 이방인에게 주었은즉 저희가 거룩한 성을 마흔 두달 동안 짓밟으리라",
+                "내가 나의 두 증인에게 권세를 주리니 저희가 굵은 베옷을 입고 일천 이백 육십 일을 예언하리라",
+                "이는 이 땅의 주 앞에 섰는 두 감람나무와 두 촛대니",
+                "만일 누구든지 저희를 해하고자 한즉 저희 입에서 불이 나서 그 원수를 소멸할찌니 누구든지 해하려 하면 반드시 이와 같이 죽임을 당하리라",
+                "저희가 권세를 가지고 하늘을 닫아 그 예언을 하는 날 동안 비 오지 못하게 하고 또 권세를 가지고 물을 변하여 피 되게 하고 아무 때든지 원하는 대로 여러가지 재앙으로 땅을 치리로다",
+                "저희가 그 증거를 마칠 때에 무저갱으로부터 올라오는 짐승이 저희로 더불어 전쟁을 일으켜 저희를 이기고 저희를 죽일터인즉",
+                "저희 시체가 큰 성길에 있으리니 그 성은 영적으로 하면 소돔이라고도 하고 애굽이라고도 하니 곧 저희 주께서 십자가에 못 박히신 곳이니라",
+                "백성들과 족속과 방언과 나라 중에서 사람들이 그 시체를 사흘 반 동안을 목도하며 무덤에 장사하지 못하게 하리로다",
+                "이 두 선지자가 땅에 거하는 자들을 괴롭게 한고로 땅에 거하는 자들이 저희의 죽음을 즐거워하고 기뻐하여 서로 예물을 보내리라 하더라",
+                "삼일 반 후에 하나님께로부터 생기가 저희 속에 들어가매 저희가 발로 일어서니 구경하는 자들이 크게 두려워하더라",
+                "하늘로부터 큰 음성이 있어 이리로 올라오라 함을 저희가 듣고 구름을 타고 하늘로 올라가니 저희 원수들도 구경하더라",
+                "그 시에 큰 지진이 나서 성 십분의 일이 무너지고 지진에 죽은 사람이 칠천이라 그 남은 자들이 두려워하여 영광을 하늘의 하나님께 돌리더라",
+                "둘째 화는 지나갔으나 보라 셋째 화가 속히 이르는도다",
+                "일곱째 천사가 나팔을 불매 하늘에 큰 음성들이 나서 가로되 세상 나라가 우리 주와 그 그리스도의 나라가 되어 그가 세세토록 왕노릇 하시리로다 하니",
+                "하나님 앞에 자기 보좌에 앉은 이십 사 장로들이 엎드려 얼굴을 대고 하나님께 경배하여",
+                "가로되 감사하옵나니 옛적에도 계셨고 시방도 계신 주 하나님 곧 전능하신이여 친히 큰 권능을 잡으시고 왕노릇 하시도다",
+                "이방들이 분노하매 주의 진노가 임하여 죽은 자를 심판하시며 종 선지자들과 성도들과 또 무론대소하고 주의 이름을 경외하는 자들에게 상 주시며 또 땅을 망하게 하는 자들을 멸망시키실 때로소이다 하더라",
+                "이에 하늘에 있는 하나님의 성전이 열리니 성전 안에 하나님의 언약궤가 보이며 또 번개와 음성들과 뇌성과 지진과 큰 우박이 있더라"
+            ],
+            12: [
+                "하늘에 큰 이적이 보이니 해를 입은 한 여자가 있는데 그 발 아래는 달이 있고 그 머리에는 열 두 별의 면류관을 썼더라",
+                "이 여자가 아이를 배어 해산하게 되매 아파서 애써 부르짖더라",
+                "하늘에 또 다른 이적이 보이니 보라 한 큰 붉은 용이 있어 머리가 일곱이요 뿔이 열이라 그 여러 머리에 일곱 면류관이 있는데",
+                "그 꼬리가 하늘 별 삼분의 일을 끌어다가 땅에 던지더라 용이 해산하려는 여자 앞에서 그가 해산하면 그 아이를 삼키고자 하더니",
+                "여자가 아들을 낳으니 이는 장차 철장으로 만국을 다스릴 남자라 그 아이를 하나님 앞과 그 보좌 앞으로 올려가더라",
+                "그 여자가 광야로 도망하매 거기서 일천 이백 육십일 동안 저를 양육하기 위하여 하나님의 예비하신 곳이 있더라",
+                "하늘에 전쟁이 있으니 미가엘과 그의 사자들이 용으로 더불어 싸울쌔 용과 그의 사자들도 싸우나",
+                "이기지 못하여 다시 하늘에서 저희의 있을 곳을 얻지 못한지라",
+                "큰 용이 내어 쫓기니 옛 뱀 곧 마귀라고도 하고 사단이라고도 하는 온 천하를 꾀는 자라 땅으로 내어 쫓기니 그의 사자들도 저와 함께 내어 쫓기니라",
+                "내가 또 들으니 하늘에 큰 음성이 있어 가로되 이제 우리 하나님의 구원과 능력과 나라와 또 그의 그리스도의 권세가 이루었으니 우리 형제들을 참소하던 자 곧 우리 하나님 앞에서 밤낮 참소하던 자가 쫓겨 났고",
+                "또 여러 형제가 어린 양의 피와 자기의 증거하는 말을 인하여 저를 이기었으니 그들은 죽기까지 자기 생명을 아끼지 아니하였도다",
+                "그러므로 하늘과 그 가운데 거하는 자들은 즐거워하라 그러나 땅과 바다는 화 있을찐저 이는 마귀가 자기의 때가 얼마 못된 줄을 알므로 크게 분내어 너희에게 내려 갔음이라 하더라",
+                "용이 자기가 땅으로 내어쫓긴 것을 보고 남자를 낳은 여자를 핍박하는지라",
+                "그 여자가 큰 독수리의 두 날개를 받아 광야 자기 곳으로 날아가 거기서 그 뱀의 낯을 피하여 한 때와 두 때와 반 때를 양육 받으매",
+                "여자의 뒤에서 뱀이 그 입으로 물을 강 같이 토하여 여자를 물에 떠내려 가게 하려 하되",
+                "땅이 여자를 도와 그 입을 벌려 용의 입에서 토한 강물을 삼키니",
+                "용이 여자에게 분노하여 돌아가서 그 여자의 남은 자손 곧 하나님의 계명을 지키며 예수의 증거를 가진 자들로 더불어 싸우려고 바다 모래 위에 섰더라"
+            ],
+            13: [
+                "내가 보니 바다에서 한 짐승이 나오는데 뿔이 열이요 머리가 일곱이라 그 뿔에는 열 면류관이 있고 그 머리들에는 참람된 이름들이 있더라",
+                "내가 본 짐승은 표범과 비슷하고 그 발은 곰의 발 같고 그 입은 사자의 입 같은데 용이 자기의 능력과 보좌와 큰 권세를 그에게 주었더라",
+                "그의 머리 하나가 상하여 죽게 된 것 같더니 그 죽게 되었던 상처가 나으매 온 땅이 이상히 여겨 짐승을 따르고",
+                "용이 짐승에게 권세를 주므로 용에게 경배하며 짐승에게 경배하여 가로되 누가 이 짐승과 같으뇨 누가 능히 이로 더불어 싸우리요 하더라",
+                "또 짐승이 큰 말과 참람된 말 하는 입을 받고 또 마흔 두달 일할 권세를 받으니라",
+                "짐승이 입을 벌려 하나님을 향하여 훼방하되 그의 이름과 그의 장막 곧 하늘에 거하는 자들을 훼방하더라",
+                "또 권세를 받아 성도들과 싸워 이기게 되고 각 족속과 백성과 방언과 나라를 다스리는 권세를 받으니",
+                "죽임을 당한 어린 양의 생명책에 창세 이후로 녹명되지 못하고 이 땅에 사는 자들은 다 짐승에게 경배하리라",
+                "누구든지 귀가 있거든 들을찌어다",
+                "사로잡는 자는 사로잡힐 것이요 칼로 죽이는 자는 자기도 마땅히 칼에 죽으리니 성도들의 인내와 믿음이 여기 있느니라",
+                "내가 보매 또 다른 짐승이 땅에서 올라오니 새끼양 같이 두 뿔이 있고 용처럼 말하더라",
+                "저가 먼저 나온 짐승의 모든 권세를 그 앞에서 행하고 땅과 땅에 거하는 자들로 처음 짐승에게 경배하게 하니 곧 죽게 되었던 상처가 나은 자니라",
+                "큰 이적을 행하되 심지어 사람들 앞에서 불이 하늘로부터 땅에 내려 오게 하고",
+                "짐승 앞에서 받은바 이적을 행함으로 땅에 거하는 자들을 미혹하며 땅에 거하는 자들에게 이르기를 칼에 상하였다가 살아난 짐승을 위하여 우상을 만들라 하더라",
+                "저가 권세를 받아 그 짐승의 우상에게 생기를 주어 그 짐승의 우상으로 말하게 하고 또 짐승의 우상에게 경배하지 아니하는 자는 몇이든지 다 죽이게 하더라",
+                "저가 모든 자 곧 작은 자나 큰 자나 부자나 빈궁한 자나 자유한 자나 종들로 그 오른손에나 이마에 표를 받게 하고",
+                "누구든지 이 표를 가진 자 외에는 매매를 못하게 하니 이 표는 곧 짐승의 이름이나 그 이름의 수라",
+                "지혜가 여기 있으니 총명 있는 자는 그 짐승의 수를 세어 보라 그 수는 사람의 수니 육백 육십 륙이니라"
+            ]
+        };
+
+        const parseData = (text) => {
+            const chaptersData = {
+                11: { title: "두 증인과 일곱째 나팔", questions: [] },
+                12: { title: "용과 하나님과의 전쟁", questions: [] },
+                13: { title: "짐승에게 표 받고 배도한 선민", questions: [] }
+            };
+            
+            let currentChapter = null;
+            let lastMatchIdx = { 11: 0, 12: 0, 13: 0 };
+            const lines = text.split('\n');
+
+            lines.forEach((line) => {
+                const trimmed = line.trim();
+                if (!trimmed) return;
+
+                if (trimmed.startsWith("계 11장")) { currentChapter = 11; return; }
+                if (trimmed.startsWith("계 12장")) { currentChapter = 12; return; }
+                if (trimmed.startsWith("계 13장")) { currentChapter = 13; return; }
+
+                if (currentChapter && trimmed.includes(':')) {
+                    const colonIndex = trimmed.indexOf(':');
+                    const word = trimmed.substring(0, colonIndex).trim();
+                    let details = trimmed.substring(colonIndex + 1).trim();
+
+                    let searchWord = word.replace(/\([^)]+\)/g, '').trim();
+                    
+                    const refMatch = details.match(/,\s*([창출레민신수삿룻삼왕대스느에욥시잠전아사렘애겔단호욜암옵욘미나합습학슥말마막눅요행롬고갈엡빌골살딤딛몬히약벧요일이삼유계]\s*\d+.*)$/);
+                    let meaning = details;
+                    let ref = "";
+                    if (refMatch) {
+                        meaning = details.substring(0, refMatch.index).trim();
+                        ref = refMatch[1].trim();
+                        meaning = meaning.replace(/,$/, '').trim(); 
+                    }
+
+                    let occurrenceIdx = -1; 
+                    let highlightWord = searchWord; 
+
+                    if (currentChapter === 13 && searchWord === "에 죽으리니") {
+                        meaning = "계 8~9장, 계 16장, 계 19:19~21";
+                        ref = "※ 계 18:6, 겔 39:9";
+                    }
+
+                    if (currentChapter === 11 && searchWord === "상") {
+                        lastMatchIdx[11] = 17; 
+                    }
+                    if (currentChapter === 12 && searchWord === "그의 사자들") {
+                        if (meaning.includes("하나님의 군대")) occurrenceIdx = 1; 
+                        if (meaning.includes("사단의 군대")) occurrenceIdx = 2; 
+                    }
+                    if (currentChapter === 13 && searchWord === "칼") {
+                        if (meaning.includes("거짓 교리")) occurrenceIdx = 1; 
+                        if (meaning.includes("진리의 말씀")) occurrenceIdx = 2; 
+                    }
+                    if (currentChapter === 13 && searchWord === "저") {
+                        if (chaptersData[13].questions.length > 60) {
+                            lastMatchIdx[13] = 15; 
+                            occurrenceIdx = 1; 
+                        } else {
+                            occurrenceIdx = 1; 
+                        }
+                    }
+
+                    let matchedVerse = "";
+                    let matchedVerseNum = 0;
+                    const chapterVerses = bibleText[currentChapter];
+                    const normalizedSearch = searchWord.replace(/\s+/g, '');
+                    
+                    if(chapterVerses) {
+                        const startIdx = lastMatchIdx[currentChapter];
+                        
+                        for (let i = startIdx; i < chapterVerses.length; i++) {
+                            if (chapterVerses[i].replace(/\s+/g, '').includes(normalizedSearch)) {
+                                matchedVerse = chapterVerses[i];
+                                matchedVerseNum = i + 1;
+                                lastMatchIdx[currentChapter] = i; 
+                                break;
+                            }
+                        }
+                        if (!matchedVerse) {
+                            for (let i = 0; i < startIdx; i++) {
+                                if (chapterVerses[i].replace(/\s+/g, '').includes(normalizedSearch)) {
+                                    matchedVerse = chapterVerses[i];
+                                    matchedVerseNum = i + 1;
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    chaptersData[currentChapter].questions.push({
+                        originalIdx: chaptersData[currentChapter].questions.length, 
+                        word,
+                        searchWord,
+                        highlightWord,
+                        occurrenceIdx,
+                        meaning,
+                        reference: ref,
+                        verseText: matchedVerse,
+                        verseNum: matchedVerseNum
+                    });
+                }
+            });
+
+            Object.keys(chaptersData).forEach(chap => {
+                chaptersData[chap].questions.sort((a, b) => {
+                    if (a.verseNum !== b.verseNum) {
+                        return a.verseNum - b.verseNum;
+                    }
+                    return a.originalIdx - b.originalIdx;
+                });
+                chaptersData[chap].questions.forEach((q, idx) => {
+                    q.id = `${chap}_${idx}`;
+                });
+            });
+
+            return chaptersData;
+        };
+
+        const parsedQuizData = parseData(rawData);
+
+        const BookOpenIcon = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+            </svg>
+        );
+
+        const XIcon = ({ className, onClick }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={`cursor-pointer ${className}`} onClick={onClick}>
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+        );
+
+        const CheckIcon = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <polyline points="20 6 9 17 4 12" />
+            </svg>
+        );
+
+        const LockIcon = ({ className }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}>
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+            </svg>
+        );
+
+        const HighlightedVerse = ({ text, highlight, occurrenceIdx }) => {
+            if (!text || !highlight) return <span className="leading-[1.7] tracking-tight">{text}</span>;
+            
+            const cleanHighlight = highlight.replace(/\([^)]+\)/g, '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&').replace(/\s+/g, '');
+            
+            const flexRegexStr = cleanHighlight.split('').join('\\s*');
+            const regex = new RegExp(`(${flexRegexStr})`, 'gi');
+            
+            const parts = text.split(regex);
+            if (parts.length === 1) return <span className="leading-[1.7] tracking-tight">{text}</span>;
+
+            let matchCount = 0;
+            return (
+                <span className="leading-[1.7] break-keep tracking-tight">
+                    {parts.map((part, i) => {
+                        if (i % 2 === 1) {
+                            matchCount++;
+                            if (occurrenceIdx === -1 || occurrenceIdx === matchCount) {
+                                return (
+                                    <span key={i} className="bg-[#e0e7ff] text-[#4f46e5] px-1 rounded font-bold mx-[1px]">
+                                        {part}
+                                    </span>
+                                );
+                            } else {
+                                return <React.Fragment key={i}>{part}</React.Fragment>;
+                            }
+                        }
+                        return <React.Fragment key={i}>{part}</React.Fragment>;
+                    })}
+                </span>
+            );
+        };
+
+        function App() {
+            // 앱의 시작 상태를 'login'으로 설정합니다.
+            const [currentView, setCurrentView] = useState('login');
+            const [password, setPassword] = useState('');
+            
+            const [selectedChapter, setSelectedChapter] = useState(null);
+            const [currentQuestionIdx, setCurrentQuestionIdx] = useState(0);
+            const [score, setScore] = useState(0);
+            
+            const [options, setOptions] = useState([]);
+            const [selectedOptionIdx, setSelectedOptionIdx] = useState(null);
+            const [isAnswerSubmitted, setIsAnswerSubmitted] = useState(false);
+            const [isCorrect, setIsCorrect] = useState(false);
+
+            const scrollRef = useRef(null);
+
+            // 암호 입력 자동 확인 핸들러
+            const handlePasswordChange = (e) => {
+                const val = e.target.value;
+                setPassword(val);
+
+                // 1. 7777인 경우
+                if (val === '7777') {
+                    setCurrentView('home');
+                    setPassword(''); // 입력창 초기화
+                    return;
+                }
+
+                // 2. 13자리이고 시작 번호가 000, 001, 002, 003, 004 중 하나인 경우
+                if (val.length === 13) {
+                    const regex = /^(000|001|002|003|004)\d{10}$/;
+                    if (regex.test(val)) {
+                        setCurrentView('home');
+                        setPassword(''); // 입력창 초기화
+                    }
+                }
+            };
+
+            const generateOptions = (chapter, qIdx) => {
+                const allQuestions = parsedQuizData[chapter].questions;
+                const correctQuestion = allQuestions[qIdx];
+                
+                const availableWrong = allQuestions.filter((q, idx) => 
+                    idx !== qIdx && q.meaning !== correctQuestion.meaning
+                );
+                
+                const shuffledWrong = [...availableWrong].sort(() => 0.5 - Math.random());
+                
+                const wrongAnswers = [];
+                const seenMeanings = new Set([correctQuestion.meaning]);
+
+                for (const w of shuffledWrong) {
+                    if (!seenMeanings.has(w.meaning)) {
+                        seenMeanings.add(w.meaning);
+                        wrongAnswers.push(w);
+                    }
+                    if (wrongAnswers.length === 2) break;
+                }
+
+                const combinedOptions = [
+                    { text: correctQuestion.meaning, isCorrect: true },
+                    ...wrongAnswers.map(wa => ({ text: wa.meaning, isCorrect: false }))
+                ];
+
+                combinedOptions.sort(() => 0.5 - Math.random());
+                setOptions(combinedOptions);
+            };
+
+            useEffect(() => {
+                if (currentView === 'quiz' && selectedChapter) {
+                    generateOptions(selectedChapter, currentQuestionIdx);
+                    setSelectedOptionIdx(null);
+                    setIsAnswerSubmitted(false);
+                    setIsCorrect(false);
+                    setTimeout(() => {
+                        if (scrollRef.current) {
+                            scrollRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+                        }
+                    }, 10);
+                }
+            }, [currentView, selectedChapter, currentQuestionIdx]);
+
+            const startChapter = (chapter) => {
+                setSelectedChapter(chapter);
+                setCurrentQuestionIdx(0);
+                setScore(0);
+                setCurrentView('quiz');
+            };
+
+            const handleOptionClick = (idx) => {
+                if (isAnswerSubmitted) return;
+                
+                setSelectedOptionIdx(idx);
+                const correct = options[idx].isCorrect;
+                setIsCorrect(correct);
+                setIsAnswerSubmitted(true);
+                
+                if (correct) setScore(prev => prev + 1);
+            };
+
+            const handleNextQuestion = () => {
+                const totalQuestions = parsedQuizData[selectedChapter].questions.length;
+                if (currentQuestionIdx < totalQuestions - 1) {
+                    setCurrentQuestionIdx(prev => prev + 1);
+                } else {
+                    alert(`학습을 완료했습니다!\n총 ${totalQuestions}문제 중 ${score}문제 정답.`);
+                    setCurrentView('home');
+                }
+            };
+
+            const goHome = () => setCurrentView('home');
+            
+            const goLockScreen = () => {
+                setPassword('');
+                setCurrentView('login');
+            };
+
+            // --- 0. 잠금 화면 (로그인) ---
+            if (currentView === 'login') {
+                return (
+                    <div className="flex justify-center bg-[#f2f4fc] min-h-screen">
+                        <div className="w-full max-w-[420px] bg-[#f8f9ff] h-[100dvh] flex flex-col items-center justify-center relative shadow-xl overflow-hidden">
+                            
+                            {/* 장식 요소들 */}
+                            <div className="absolute top-14 left-10 opacity-10 w-8 h-8 grid grid-cols-3 gap-1.5">
+                                {[...Array(9)].map((_, i) => <div key={i} className="w-[5px] h-[5px] rounded-full bg-[#1d40dc]"></div>)}
+                            </div>
+                            <div className="absolute top-12 right-12 text-[#a5b4fc] opacity-60">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 0L13.5 10.5L24 12L13.5 13.5L12 24L10.5 13.5L0 12L10.5 10.5Z" />
+                                </svg>
+                            </div>
+                            <div className="absolute bottom-24 right-14 opacity-20">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#6366f1" strokeWidth="4">
+                                    <circle cx="12" cy="12" r="9" />
+                                </svg>
+                            </div>
+
+                            {/* 메인 타이틀 영역 */}
+                            <div className="flex flex-col items-center relative z-10 mb-20 drop-shadow-sm">
+                                {/* 통통 글자 */}
+                                <div className="text-[76px] leading-[0.85] text-[#8b95f6] font-chubby tracking-tight">
+                                    통통
+                                </div>
+                                {/* 계시록 글자 */}
+                                <div className="text-[74px] leading-[0.95] text-[#13132e] font-chubby mt-2 tracking-tight">
+                                    계시록
+                                </div>
+                            </div>
+
+                            {/* 암호 입력창 (알약 모양) */}
+                            <div className="w-[85%] max-w-[320px] bg-white rounded-full flex items-center p-1.5 shadow-[0_12px_24px_rgba(200,205,230,0.6)] relative z-10">
+                                <input 
+                                    type="tel"
+                                    className="flex-1 bg-transparent outline-none px-5 py-2 text-[15px] font-bold text-[#334155] placeholder-gray-300 w-full"
+                                    placeholder="암호 입력 (- 기호 생략)"
+                                    value={password}
+                                    onChange={handlePasswordChange}
+                                />
+                                <div className="bg-[#6366f1] text-white rounded-full px-6 py-3 font-extrabold text-[14.5px] shrink-0 shadow-sm cursor-default">
+                                    입장
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // --- 1. 홈 화면 ---
+            if (currentView === 'home') {
+                return (
+                    <div className="flex justify-center bg-[#f2f4fc] min-h-screen">
+                        <div className="w-full max-w-[420px] bg-[#f2f4fc] h-[100dvh] flex flex-col relative shadow-xl overflow-hidden">
+                            
+                            {/* 잠금화면으로 돌아가는 버튼 (우측 상단) */}
+                            <button onClick={goLockScreen} className="absolute top-6 right-6 z-50 bg-white/60 backdrop-blur-sm p-2.5 rounded-full shadow-sm text-gray-500 hover:text-[#4f46e5] transition-colors" title="잠금화면으로 가기">
+                                <LockIcon className="w-[18px] h-[18px]" />
+                            </button>
+
+                            {/* 상단 장식 요소들 */}
+                            <div className="absolute top-8 left-6 opacity-30 w-8 h-8 grid grid-cols-3 gap-1">
+                                {[...Array(9)].map((_, i) => <div key={i} className="w-[4px] h-[4px] rounded-full bg-[#1d40dc]"></div>)}
+                            </div>
+                            <div className="absolute top-20 right-8 opacity-40">
+                                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                                    <circle cx="10" cy="10" r="7" stroke="#8c95e6" strokeWidth="3" />
+                                </svg>
+                            </div>
+                            <div className="absolute top-[150px] left-8 opacity-40 transform -rotate-12">
+                                <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+                                    <path d="M8 0L16 8L8 16L0 8L8 0Z" fill="#8c95e6" />
+                                </svg>
+                            </div>
+
+                            {/* 메인 콘텐츠 컨테이너 */}
+                            <div className="flex-1 flex flex-col items-center pt-24 px-6 z-10 overflow-y-auto pb-48 hide-scrollbar">
+                                
+                                {/* 1. 타이포그래피 로고 영역 */}
+                                <div className="relative flex flex-col items-center mb-10 w-full z-10">
+                                    
+                                    {/* 알약 뱃지: 본문의 참 뜻 통달 */}
+                                    <div className="flex items-center bg-[#e0e7ff] border border-[#c7d2fe] px-4 py-1.5 rounded-full mb-5 shadow-sm">
+                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="mr-1.5 text-[#4f46e5]">
+                                            <path d="M12 2 L14.5 9.5 L22 12 L14.5 14.5 L12 22 L9.5 14.5 L2 12 L9.5 9.5 Z" />
+                                        </svg>
+                                        <span className="text-[#4f46e5] font-extrabold text-[13px] tracking-tight pt-[1px]">본문의 참 뜻 통달</span>
+                                    </div>
+
+                                    {/* 메인 타이틀 */}
+                                    <div className="flex flex-col items-center relative w-full">
+                                        {/* 통통 글자 */}
+                                        <div className="text-[90px] leading-[0.85] text-[#8b95f6] font-chubby tracking-tight drop-shadow-sm">
+                                            통통
+                                        </div>
+                                        
+                                        {/* 계시록 글자 */}
+                                        <div className="text-[86px] leading-[0.95] text-[#13132e] font-chubby mt-2 tracking-tight">
+                                            계시록
+                                        </div>
+                                    </div>
+
+                                    <p className="text-[#65698c] text-[13.5px] font-bold mt-6 tracking-tight z-10 bg-[#f2f4fc]/80 px-2 rounded-lg">
+                                        계시록을 통달하는 쉽고 깊이 있는 공부
+                                    </p>
+                                </div>
+
+                                {/* 2. 장 선택 버튼 리스트 */}
+                                <div className="w-full space-y-3.5 relative z-10 max-w-[340px]">
+                                    {/* 11장 버튼 */}
+                                    <button onClick={() => startChapter(11)} className="w-full bg-white rounded-[20px] p-4 flex items-center justify-between transition-transform active:scale-95 shadow-[0_12px_24px_rgba(200,205,230,0.6)]">
+                                        <div className="flex items-center space-x-4">
+                                            <div className="w-11 h-11 rounded-full bg-[#5d63d6] text-white font-extrabold flex items-center justify-center text-[18px] shrink-0">
+                                                1
+                                            </div>
+                                            <div className="text-left flex flex-col justify-center">
+                                                <h2 className="text-[17.5px] font-black text-[#13132e] mb-0.5 tracking-tight">계시록 11장</h2>
+                                                <p className="text-[11.5px] text-[#8c92a6] font-bold tracking-tight">{parsedQuizData[11].title}</p>
+                                            </div>
+                                        </div>
+                                        <span className="text-[#5d63d6] font-bold text-xl mr-2">&gt;</span>
+                                    </button>
+
+                                    {/* 12장 버튼 */}
+                                    <button onClick={() => startChapter(12)} className="w-full bg-white rounded-[20px] p-4 flex items-center justify-between transition-transform active:scale-95 shadow-[0_12px_24px_rgba(200,205,230,0.6)]">
+                                        <div className="flex items-center space-x-4">
+                                            <div className="w-11 h-11 rounded-full bg-[#20a469] text-white font-extrabold flex items-center justify-center text-[18px] shrink-0">
+                                                2
+                                            </div>
+                                            <div className="text-left flex flex-col justify-center">
+                                                <h2 className="text-[17.5px] font-black text-[#13132e] mb-0.5 tracking-tight">계시록 12장</h2>
+                                                <p className="text-[11.5px] text-[#8c92a6] font-bold tracking-tight">{parsedQuizData[12].title}</p>
+                                            </div>
+                                        </div>
+                                        <span className="text-[#20a469] font-bold text-xl mr-2">&gt;</span>
+                                    </button>
+
+                                    {/* 13장 버튼 */}
+                                    <button onClick={() => startChapter(13)} className="w-full bg-white rounded-[20px] p-4 flex items-center justify-between transition-transform active:scale-95 shadow-[0_12px_24px_rgba(200,205,230,0.6)]">
+                                        <div className="flex items-center space-x-4">
+                                            <div className="w-11 h-11 rounded-full bg-[#eb4363] text-white font-extrabold flex items-center justify-center text-[18px] shrink-0">
+                                                3
+                                            </div>
+                                            <div className="text-left flex flex-col justify-center">
+                                                <h2 className="text-[17.5px] font-black text-[#13132e] mb-0.5 tracking-tight">계시록 13장</h2>
+                                                <p className="text-[11.5px] text-[#8c92a6] font-bold tracking-tight">{parsedQuizData[13].title}</p>
+                                            </div>
+                                        </div>
+                                        <span className="text-[#eb4363] font-bold text-xl mr-2">&gt;</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* 3. 하단 일러스트 배경 (SVG 순수 코드) */}
+                            <div className="absolute bottom-0 left-0 w-full h-[320px] z-0 pointer-events-none overflow-hidden">
+                                <svg viewBox="0 0 420 320" className="w-full h-full" preserveAspectRatio="xMidYMax slice">
+                                    {/* 배경 원형 데코레이션 */}
+                                    <circle cx="0" cy="100" r="140" fill="#e2e6fa" opacity="0.6"/>
+                                    <circle cx="420" cy="140" r="110" fill="#e2e6fa" opacity="0.6"/>
+                                    <path d="M 400 30 L 430 60 L 400 90 Z" fill="#e2e6fa" opacity="0.5" />
+
+                                    {/* 넓은 책상 */}
+                                    <path d="M -50 270 L 470 270 L 470 320 L -50 320 Z" fill="#b1b8f0" />
+                                    <path d="M -50 285 L 470 285 L 470 320 L -50 320 Z" fill="#8c95e6" />
+
+                                    {/* 왼쪽 큰 화분 식물 */}
+                                    <path d="M 35 270 Q 20 160 40 130 Q 60 160 50 270" fill="#7883ea" />
+                                    <path d="M 50 270 Q 10 190 15 160 Q 30 190 50 270" fill="#7883ea" />
+                                    <path d="M 45 270 Q 90 190 90 150 Q 65 190 45 270" fill="#7883ea" />
+                                    {/* 화분 받침과 통 */}
+                                    <rect x="25" y="255" width="45" height="45" rx="4" fill="#505acb" />
+                                    <rect x="22" y="250" width="51" height="8" rx="2" fill="#444db8" />
+
+                                    {/* 왼쪽 쌓인 책들 */}
+                                    <rect x="65" y="250" width="115" height="16" rx="3" fill="#ff6b9a" />
+                                    <rect x="70" y="234" width="105" height="16" rx="3" fill="#ffffff" />
+                                    <rect x="70" y="218" width="100" height="16" rx="3" fill="#7883ea" />
+                                    {/* 책 등 밴드 디자인 */}
+                                    <rect x="65" y="250" width="12" height="16" fill="#e05480" />
+                                    <rect x="70" y="234" width="10" height="16" fill="#e2e8f0" />
+                                    <rect x="70" y="218" width="10" height="16" fill="#505acb" />
+
+                                    {/* 오른쪽 책상 스탠드 조명 */}
+                                    <path d="M 330 270 L 380 270 Q 385 260 375 260 L 335 260 Q 325 260 330 270 Z" fill="#4a50c4" />
+                                    <line x1="355" y1="260" x2="355" y2="140" stroke="#7883ea" strokeWidth="8" strokeLinecap="round"/>
+                                    <line x1="355" y1="140" x2="305" y2="105" stroke="#7883ea" strokeWidth="8" strokeLinecap="round"/>
+                                    {/* 스탠드 관절 */}
+                                    <circle cx="355" cy="140" r="6" fill="#4a50c4" />
+                                    <circle cx="305" cy="105" r="5" fill="#4a50c4" />
+                                    {/* 스탠드 전등 갓 */}
+                                    <path d="M 310 100 Q 280 120 270 150 L 325 165 Q 330 120 310 100 Z" fill="#505acb" />
+                                    {/* 뿜어져 나오는 빛 (반투명) */}
+                                    <path d="M 290 160 L 220 270 L 380 270 Z" fill="#ffffff" opacity="0.15" />
+
+                                    {/* 오른쪽 연필 꽂이 상자 */}
+                                    <rect x="360" y="220" width="40" height="50" rx="4" fill="#1b2161" />
+                                    <rect x="365" y="180" width="8" height="45" rx="3" fill="#ffffff" />
+                                    <rect x="378" y="195" width="8" height="30" rx="3" fill="#ff6b9a" />
+
+                                    {/* 가운데 둥글게 펴진 노트/책 */}
+                                    <path d="M 175 275 Q 220 285 255 275 Q 290 285 335 275 L 310 215 Q 270 225 255 215 Q 240 225 200 215 Z" fill="#ffffff" />
+                                    <path d="M 175 280 Q 220 290 255 280 Q 290 290 335 280 L 335 275 Q 290 285 255 275 Q 220 285 175 275 Z" fill="#d1d5db" />
+                                    {/* 가운데 책 접힌 선 */}
+                                    <path d="M 255 275 L 255 215" stroke="#e2e8f0" strokeWidth="3" />
+                                    
+                                    {/* 책 위 굴러다니는 연필 */}
+                                    <line x1="285" y1="245" x2="335" y2="260" stroke="#1b2161" strokeWidth="5" strokeLinecap="round" />
+                                    <circle cx="285" cy="245" r="2.5" fill="#ff6b9a" />
+                                    
+                                    {/* 책 사이에 꽂힌 파란색 책갈피 */}
+                                    <rect x="235" y="275" width="12" height="25" fill="#1d40dc" />
+                                    <path d="M 235 300 L 241 293 L 247 300 Z" fill="#f2f4fc" />
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            // --- 2. 기존 문제 풀이 화면 로직 유지 ---
+            const currentChapterData = parsedQuizData[selectedChapter];
+            const totalQuestions = currentChapterData.questions.length;
+            const currentQuestion = currentChapterData.questions[currentQuestionIdx];
+
+            return (
+                <div className="flex justify-center bg-gray-100 min-h-screen font-sans">
+                    <div className="w-full max-w-[420px] bg-[#f8fafc] h-[100dvh] flex flex-col relative shadow-2xl overflow-hidden">
+                        
+                        <div className="bg-white px-5 py-3.5 flex items-center justify-between border-b border-gray-100 shrink-0">
+                            <button onClick={goHome} className="p-1 text-gray-400 hover:text-gray-600">
+                                <XIcon className="w-5 h-5" />
+                            </button>
+                            <div className="text-center flex-1">
+                                <div className="text-[11px] font-bold text-[#4f46e5] mb-0.5 tracking-tight">계 {selectedChapter}장</div>
+                                <div className="font-extrabold text-[#1e3a8a] text-lg tracking-wide">
+                                    {currentQuestionIdx + 1} <span className="text-gray-400 font-medium text-[15px]">/ {totalQuestions}</span>
+                                </div>
+                            </div>
+                            <div className="w-7"></div>
+                        </div>
+
+                        <div className="bg-white px-5 py-3.5 flex items-center space-x-2 border-b border-gray-100 shrink-0 shadow-sm z-10">
+                            <div className="w-[26px] h-[26px] rounded-full border-[1.5px] border-[#ef4444] flex items-center justify-center text-[#ef4444] font-bold text-[11px]">
+                                인
+                            </div>
+                            <div className="text-[14px] font-bold text-[#10b981]">
+                                {score} <span className="text-gray-400 font-medium text-[13px]">/ {totalQuestions} 획득</span>
+                            </div>
+                        </div>
+
+                        <div ref={scrollRef} className="flex-1 overflow-y-auto p-5 pb-32">
+                            <div className="bg-[#f4f7ff] border border-[#e5eaff] rounded-xl p-5 mb-4 shadow-sm">
+                                <div className="flex items-center space-x-2 mb-2">
+                                    <BookOpenIcon className="w-[16px] h-[16px] text-[#6366f1]" />
+                                    <span className="text-[#6366f1] text-[13px] font-bold">
+                                        계 {selectedChapter}:{currentQuestion.verseNum || '?'}
+                                    </span>
+                                </div>
+                                <div className="text-[#334155] text-[14px] font-medium leading-[1.6]">
+                                    {currentQuestion.verseText ? (
+                                        <HighlightedVerse 
+                                            text={currentQuestion.verseText} 
+                                            highlight={currentQuestion.highlightWord} 
+                                            occurrenceIdx={currentQuestion.occurrenceIdx}
+                                        />
+                                    ) : (
+                                        <span className="text-gray-400">본문 내용을 찾는 중입니다...</span>
+                                    )}
+                                </div>
+                            </div>
+
+                            <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-6 flex flex-col items-center justify-center min-h-[110px] relative mb-4">
+                                <div className="text-[12px] font-black text-gray-400 absolute top-4 left-4">문제</div>
+                                <h2 className="text-[26px] font-black text-black mt-2 text-center break-keep tracking-tight">
+                                    {currentQuestion.word}
+                                </h2>
+                            </div>
+
+                            <div className="space-y-3">
+                                {options.map((opt, idx) => {
+                                    let isSelected = selectedOptionIdx === idx;
+                                    let btnClass = "w-full text-left p-4 rounded-xl border-[2px] font-bold text-[15px] leading-snug transition-all flex items-start ";
+                                    let badgeClass = "w-[26px] h-[26px] rounded-full flex items-center justify-center text-[13px] font-black mr-3 mt-0.5 shrink-0 ";
+
+                                    if (!isAnswerSubmitted) {
+                                        btnClass += "bg-white border-[#f1f5f9] text-[#334155] shadow-sm";
+                                        badgeClass += "bg-[#f1f5f9] text-[#64748b]";
+                                    } else {
+                                        if (opt.isCorrect) {
+                                            btnClass += "bg-[#10b981] border-[#10b981] text-white shadow-md";
+                                            badgeClass += "bg-white/20 text-white";
+                                        } else if (isSelected && !opt.isCorrect) {
+                                            btnClass += "bg-white border-[#ef4444] text-[#ef4444]";
+                                            badgeClass += "bg-[#fee2e2] text-[#ef4444]";
+                                        } else {
+                                            btnClass += "bg-[#f8fafc] border-[#f1f5f9] text-[#94a3b8] opacity-60";
+                                            badgeClass += "bg-[#f1f5f9] text-[#94a3b8]";
+                                        }
+                                    }
+
+                                    return (
+                                        <button key={idx} onClick={() => handleOptionClick(idx)} disabled={isAnswerSubmitted} className={btnClass}>
+                                            <div className={badgeClass}>{idx + 1}</div>
+                                            <span className="break-keep pt-[2px]">{opt.text}</span>
+                                        </button>
+                                    );
+                                })}
+                            </div>
+                        </div>
+
+                        {!isAnswerSubmitted && (
+                            <div className="bg-white px-4 py-3 border-t border-gray-100 shrink-0 z-20 shadow-[0_-10px_20px_-15px_rgba(0,0,0,0.1)]">
+                                <div className="flex space-x-2.5">
+                                    <button disabled={currentQuestionIdx === 0} onClick={() => setCurrentQuestionIdx(prev => prev - 1)} className="flex-1 py-3.5 rounded-xl font-extrabold text-gray-500 bg-[#f1f5f9] text-[14.5px] disabled:opacity-50 hover:bg-[#e2e8f0] transition-colors">
+                                        &lt; 이전 문제
+                                    </button>
+                                    <button onClick={handleNextQuestion} className="flex-1 py-3.5 rounded-xl font-extrabold text-[#6366f1] bg-[#eef2ff] hover:bg-[#e0e7ff] text-[14.5px] transition-colors">
+                                        다음 문제 &gt;
+                                    </button>
+                                </div>
+                            </div>
+                        )}
+
+                        {isAnswerSubmitted && (
+                            <div className="absolute bottom-0 left-0 right-0 bg-white rounded-t-3xl shadow-[0_-15px_40px_-15px_rgba(0,0,0,0.15)] z-50 flex flex-col animate-slide-up">
+                                <div className={`h-[5px] w-full ${isCorrect ? 'bg-[#10b981]' : 'bg-[#ef4444]'}`}></div>
+                                
+                                <div className="p-5 pb-6">
+                                    <div className="flex items-center space-x-3 mb-4">
+                                        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${isCorrect ? 'bg-[#d1fae5] text-[#10b981]' : 'bg-[#fee2e2] text-[#ef4444]'}`}>
+                                            {isCorrect ? <CheckIcon className="w-5 h-5" /> : <XIcon className="w-6 h-6" />}
+                                        </div>
+                                        <h3 className={`text-[18px] font-extrabold tracking-tight ${isCorrect ? 'text-[#10b981]' : 'text-[#ef4444]'}`}>
+                                            {isCorrect ? '정답입니다! 도장 획득!' : '아쉽네요, 다시 확인해보세요.'}
+                                        </h3>
+                                    </div>
+
+                                    <div className="text-[14.5px] leading-relaxed mb-5">
+                                        <span className="text-[#4f46e5] font-extrabold">[{currentQuestion.word}]</span> 의 뜻은<br/>
+                                        <span className="font-extrabold text-black mt-1.5 block break-keep text-[15.5px]">
+                                            {currentQuestion.meaning}
+                                        </span> 입니다.
+                                        
+                                        {currentQuestion.reference && (
+                                            <p className="text-[13px] font-bold text-gray-400 mt-3 pt-3 border-t border-gray-100">
+                                                참고 성구: {currentQuestion.reference}
+                                            </p>
+                                        )}
+                                    </div>
+
+                                    <div className="flex space-x-2.5">
+                                        <button disabled={currentQuestionIdx === 0} onClick={() => { setCurrentQuestionIdx(prev => prev - 1); setIsAnswerSubmitted(false); }} className="flex-1 py-5 rounded-xl font-bold text-gray-500 bg-[#f8fafc] border-[1.5px] border-gray-200 text-[16px] disabled:opacity-50 hover:bg-gray-100 transition-colors">
+                                            이전
+                                        </button>
+                                        <button onClick={handleNextQuestion} className="flex-[2] py-5 rounded-xl font-extrabold text-white bg-[#10b981] shadow-md shadow-[#10b981]/20 text-[16px] hover:bg-[#059669] transition">
+                                            다음 문제
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+
+    <style>
+        /* 기본 글꼴 (본문 등) */
+        @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+        /* 통통하고 둥근 폰트 (배달의민족 주아) */
+        @import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+        * { font-family: "Pretendard Variable", Pretendard, sans-serif; -webkit-tap-highlight-color: transparent; }
+        
+        .font-chubby { font-family: 'Jua', sans-serif; }
+
+        @keyframes slide-up { from { transform: translateY(100%); } to { transform: translateY(0); } }
+        .animate-slide-up { animation: slide-up 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        
+        body { margin: 0; padding: 0; background-color: #f1f5f9; }
+    </style>
+</body>
+</html>
